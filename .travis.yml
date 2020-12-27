@@ -8,3 +8,15 @@ before_install:
 
 script:  #build fails if return status code is not zero
   - docker run -e CI=true ojwills/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-eu-west-2-111373784667"
+  bucket_path: "docker-react"
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
