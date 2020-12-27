@@ -1,0 +1,10 @@
+language: generic
+sudo: required #whenever making use of docker we require sudo permissions
+services: #travis will automatically install services 
+  - docker
+
+before_install:
+  - docker build -t ojwills/docker-react -f Dockerfile.dev . 
+
+script:  #build fails if return status code is not zero
+  - docker run -e CI=true ojwills/docker-react npm run test -- --coverage
